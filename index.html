@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Đánh Giá Của Chúng Tôi ⭐</title>
   <meta name="description" content="Cảm ơn bạn! Nhấn vào đây để để lại đánh giá cho chúng tôi trên Google Maps." />
-  <!-- Redirect immediately -->
-  <meta http-equiv="refresh" content="0; url=https://g.page/r/CcFqFAmBpFFHEAE/review" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
@@ -176,10 +174,7 @@
       width: 0%;
       background: linear-gradient(90deg, #FFD700, #FF8C00);
       border-radius: 99px;
-      animation: fillBar 2s linear forwards;
-    }
-    @keyframes fillBar {
-      to { width: 100%; }
+      transition: width 0.1s linear;
     }
     .divider {
       height: 1px;
@@ -191,6 +186,24 @@
       color: var(--text-muted);
       opacity: 0.6;
     }
+
+    /* WebView notice banner */
+    .webview-notice {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 200, 0, 0.15);
+      border: 1px solid rgba(255, 200, 0, 0.35);
+      border-radius: 14px;
+      padding: 12px 16px;
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: #FFE566;
+      line-height: 1.5;
+      text-align: left;
+    }
+    .webview-notice.show { display: flex; }
+    .webview-notice svg { flex-shrink: 0; }
   </style>
 </head>
 <body>
@@ -216,14 +229,20 @@
       </svg>
       Google Maps Review
     </div>
+
+    <!-- WebView warning banner (shown only inside in-app browsers) -->
+    <div class="webview-notice" id="webview-notice" role="alert" aria-live="polite">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFE566" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <span id="webview-notice-text">Đang mở bằng trình duyệt mặc định…</span>
+    </div>
+
     <h1>Chia sẻ trải nghiệm của bạn!</h1>
     <p>Đánh giá của bạn giúp chúng tôi phát triển và giúp khách hàng khác tìm thấy chúng tôi dễ dàng hơn. Chỉ mất 30 giây thôi! 🙏</p>
-    <a
+    <button
       id="review-btn"
-      href="https://g.page/r/CcFqFAmBpFFHEAE/review"
       class="btn"
-      target="_top"
-      rel="noopener noreferrer"
       aria-label="Mở trang đánh giá Google ngay bây giờ"
     >
       <!-- Star icon -->
@@ -231,36 +250,158 @@
         <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
       </svg>
       Đánh giá ngay trên Google
-    </a>
+    </button>
     <div class="redirect-bar" role="status" aria-live="polite">
-      <div class="redirect-label">Đang tự động chuyển hướng…</div>
+      <div class="redirect-label" id="redirect-label">Đang tự động chuyển hướng…</div>
       <div class="bar-track">
-        <div class="bar-fill"></div>
+        <div class="bar-fill" id="bar-fill"></div>
       </div>
     </div>
     <div class="divider" aria-hidden="true"></div>
     <p class="footer-note">Nếu trang không tự chuyển, hãy nhấn nút bên trên.</p>
   </main>
+
   <script>
-    // Primary redirect — fires immediately
     (function () {
       var TARGET = 'https://g.page/r/CcFqFAmBpFFHEAE/review';
-      // Try location replace first (same tab, no history entry)
-      try {
-        window.location.replace(TARGET);
-      } catch (e) {
-        window.location.href = TARGET;
+
+      // ── 1. Detect environment ──────────────────────────────────────────────
+      var ua = navigator.userAgent || '';
+      var isIOS     = /iPhone|iPad|iPod/i.test(ua);
+      var isAndroid = /Android/i.test(ua);
+
+      // In-app browser detection
+      var isFBMessenger = /FBAN|FBAV|FB_IAB|Messenger/i.test(ua);
+      var isZalo        = /Zalo/i.test(ua);
+      var isInstagram   = /Instagram/i.test(ua);
+      var isTikTok      = /BytedanceWebview|musical_ly/i.test(ua);
+      // Generic WebView detection
+      var isIOSWebView  = isIOS && !(/Safari\//.test(ua)) && /AppleWebKit/.test(ua);
+      var isAndroidWebView = isAndroid && /wv/.test(ua);
+
+      var isInAppBrowser = isFBMessenger || isZalo || isInstagram || isTikTok || isIOSWebView || isAndroidWebView;
+
+      // ── 2. Progress bar animation ──────────────────────────────────────────
+      var barFill   = document.getElementById('bar-fill');
+      var barLabel  = document.getElementById('redirect-label');
+      var pct       = 0;
+      var barTimer  = setInterval(function () {
+        pct = Math.min(pct + 2, 98);
+        barFill.style.width = pct + '%';
+      }, 40);
+
+      function finishBar() {
+        clearInterval(barTimer);
+        barFill.style.width = '100%';
+        barLabel.textContent = 'Đã chuyển hướng ✓';
       }
-      // Fallback: open in top-level context if inside iframe / webview
-      if (window !== window.top) {
-        window.top.location.href = TARGET;
+
+      // ── 3. Show notice if inside WebView ──────────────────────────────────
+      var notice     = document.getElementById('webview-notice');
+      var noticeText = document.getElementById('webview-notice-text');
+
+      if (isInAppBrowser) {
+        notice.classList.add('show');
+        if (isIOS) {
+          noticeText.textContent = 'Đang mở bằng Safari…';
+        } else {
+          noticeText.textContent = 'Đang mở bằng trình duyệt mặc định…';
+        }
       }
-      // Button also forces top-level navigation
+
+      // ── 4. Redirect logic ─────────────────────────────────────────────────
+
+      /**
+       * Android: Use intent:// URI to force Chrome / default browser.
+       * Falls back to normal URL if intent fails.
+       */
+      function androidEscape() {
+        // intent URI scheme — opens Chrome (or default browser) directly
+        var intentUrl =
+          'intent://' + TARGET.replace(/^https?:\/\//, '') +
+          '#Intent;scheme=https;action=android.intent.action.VIEW;' +
+          'category=android.intent.category.BROWSABLE;end';
+
+        // Redirect to intent URL
+        window.location.href = intentUrl;
+
+        // If intent fails (not on Android / no handler), fall back after short delay
+        setTimeout(function () {
+          window.location.href = TARGET;
+          finishBar();
+        }, 1500);
+      }
+
+      /**
+       * iOS: In-app browsers on iOS can often be escaped by temporarily
+       * navigating away then back, or by using a custom scheme that forces
+       * the OS to open in Safari.
+       *
+       * Strategy:
+       *  1. Try opening via a hidden <a> with target="_blank" + user gesture simulation
+       *  2. For Messenger specifically: deep-link back to Safari via location replace
+       */
+      function iosEscape() {
+        // Use a hidden link + programmatic click to request external open
+        var a = document.createElement('a');
+        a.href = TARGET;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        // Also try replacing top-level location
+        setTimeout(function () {
+          try { window.top.location.href = TARGET; } catch(e) {}
+          finishBar();
+        }, 300);
+      }
+
+      /**
+       * Standard redirect for real browsers (Safari, Chrome desktop/mobile, etc.)
+       */
+      function standardRedirect() {
+        try {
+          window.location.replace(TARGET);
+        } catch (e) {
+          window.location.href = TARGET;
+        }
+        finishBar();
+      }
+
+      // ── 5. Execute on load ────────────────────────────────────────────────
+      function doRedirect() {
+        if (isAndroid && isInAppBrowser) {
+          androidEscape();
+        } else if (isIOS && isInAppBrowser) {
+          iosEscape();
+        } else {
+          standardRedirect();
+        }
+      }
+
+      // Small delay so the page renders before redirect fires
+      setTimeout(doRedirect, 300);
+
+      // ── 6. Button click ───────────────────────────────────────────────────
       var btn = document.getElementById('review-btn');
       if (btn) {
         btn.addEventListener('click', function (e) {
           e.preventDefault();
-          window.top.location.href = TARGET;
+          // On click we have a user gesture — best chance to open external browser
+          if (isAndroid && isInAppBrowser) {
+            androidEscape();
+          } else if (isIOS && isInAppBrowser) {
+            // Open a new window (user gesture required on iOS)
+            var w = window.open(TARGET, '_blank');
+            if (!w) {
+              // Pop-up blocked — fallback
+              window.location.href = TARGET;
+            }
+          } else {
+            window.open(TARGET, '_blank', 'noopener,noreferrer');
+          }
         });
       }
     })();
