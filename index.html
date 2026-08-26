@@ -7,7 +7,7 @@
   <meta name="description" content="Cảm ơn bạn! Nhấn vào đây để để lại đánh giá cho chúng tôi trên Google Maps." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -34,176 +34,168 @@
       min-height: 100dvh;
       overflow: hidden;
     }
-    /* Animated background blobs */
-    .blob {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.18;
-      animation: float 8s ease-in-out infinite alternate;
-      pointer-events: none;
-      z-index: 0;
-    }
+
+    /* Blobs */
+    .blob { position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.18; animation: float 8s ease-in-out infinite alternate; pointer-events: none; z-index: 0; }
     .blob-1 { width: 420px; height: 420px; background: #FFD700; top: -10%; left: -10%; animation-delay: 0s; }
     .blob-2 { width: 320px; height: 320px; background: #FF6B6B; bottom: -5%; right: -8%; animation-delay: 2s; }
     .blob-3 { width: 260px; height: 260px; background: #4ECDC4; top: 40%; left: 60%; animation-delay: 4s; }
-    @keyframes float {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(20px, -20px) scale(1.06); }
-    }
+    @keyframes float { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(20px,-20px) scale(1.06); } }
+
     /* Card */
     .card {
-      position: relative;
-      z-index: 1;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border-radius: 28px;
-      padding: 52px 44px 44px;
-      max-width: 420px;
-      width: calc(100% - 32px);
-      text-align: center;
+      position: relative; z-index: 1;
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border-radius: 28px; padding: 52px 44px 44px;
+      max-width: 420px; width: calc(100% - 32px); text-align: center;
       box-shadow: 0 24px 64px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.1);
       animation: slideUp 0.6s cubic-bezier(0.22,1,0.36,1) both;
     }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes slideUp { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:translateY(0); } }
+
     /* Stars */
-    .stars {
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-      margin-bottom: 24px;
-    }
-    .star {
-      font-size: 32px;
-      animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
-    }
-    .star:nth-child(1) { animation-delay: 0.1s; }
-    .star:nth-child(2) { animation-delay: 0.18s; }
-    .star:nth-child(3) { animation-delay: 0.26s; }
-    .star:nth-child(4) { animation-delay: 0.34s; }
-    .star:nth-child(5) { animation-delay: 0.42s; }
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0) rotate(-30deg); }
-      to   { opacity: 1; transform: scale(1) rotate(0deg); }
-    }
-    /* Google icon badge */
-    .google-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 50px;
-      padding: 6px 16px 6px 10px;
-      margin-bottom: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-      color: var(--text-muted);
-    }
-    .google-badge svg { flex-shrink: 0; }
-    h1 {
-      font-size: clamp(22px, 5vw, 28px);
-      font-weight: 800;
-      line-height: 1.25;
-      margin-bottom: 12px;
-      background: linear-gradient(135deg, #ffffff 30%, #FFD700 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    p {
-      font-size: 15px;
-      color: var(--text-muted);
-      line-height: 1.6;
-      margin-bottom: 36px;
-    }
-    /* CTA Button */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: var(--btn-bg);
-      color: #1a1000;
-      font-family: inherit;
-      font-size: 16px;
-      font-weight: 700;
-      text-decoration: none;
-      padding: 16px 36px;
-      border-radius: 50px;
-      box-shadow: var(--btn-shadow);
-      border: none;
-      cursor: pointer;
-      width: 100%;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-      letter-spacing: 0.2px;
-    }
-    .btn:hover, .btn:focus-visible {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 14px 40px rgba(255,165,0,0.60);
-      filter: brightness(1.08);
-      outline: none;
-    }
-    .btn:active {
-      transform: translateY(0) scale(0.98);
-    }
-    .btn svg { flex-shrink: 0; }
+    .stars { display:flex; justify-content:center; gap:6px; margin-bottom:24px; }
+    .star { font-size:32px; animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1) both; }
+    .star:nth-child(1){animation-delay:.1s}.star:nth-child(2){animation-delay:.18s}.star:nth-child(3){animation-delay:.26s}.star:nth-child(4){animation-delay:.34s}.star:nth-child(5){animation-delay:.42s}
+    @keyframes popIn { from{opacity:0;transform:scale(0) rotate(-30deg)} to{opacity:1;transform:scale(1) rotate(0)} }
+
+    /* Badge */
+    .google-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.18); border-radius:50px; padding:6px 16px 6px 10px; margin-bottom:20px; font-size:13px; font-weight:600; letter-spacing:.3px; color:var(--text-muted); }
+    .google-badge svg { flex-shrink:0; }
+
+    h1 { font-size:clamp(22px,5vw,28px); font-weight:800; line-height:1.25; margin-bottom:12px; background:linear-gradient(135deg,#ffffff 30%,#FFD700 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    p { font-size:15px; color:var(--text-muted); line-height:1.6; margin-bottom:36px; }
+
+    /* Button */
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:10px; background:var(--btn-bg); color:#1a1000; font-family:inherit; font-size:16px; font-weight:700; text-decoration:none; padding:16px 36px; border-radius:50px; box-shadow:var(--btn-shadow); border:none; cursor:pointer; width:100%; transition:transform .18s ease,box-shadow .18s ease,filter .18s ease; letter-spacing:.2px; }
+    .btn:hover,.btn:focus-visible { transform:translateY(-3px) scale(1.02); box-shadow:0 14px 40px rgba(255,165,0,.60); filter:brightness(1.08); outline:none; }
+    .btn:active { transform:translateY(0) scale(0.98); }
+    .btn svg { flex-shrink:0; }
+
     /* Progress bar */
-    .redirect-bar {
-      margin-top: 28px;
+    .redirect-bar { margin-top:28px; }
+    .redirect-label { font-size:12px; color:var(--text-muted); margin-bottom:8px; }
+    .bar-track { height:4px; background:rgba(255,255,255,0.12); border-radius:99px; overflow:hidden; }
+    .bar-fill { height:100%; width:0%; background:linear-gradient(90deg,#FFD700,#FF8C00); border-radius:99px; transition:width .1s linear; }
+
+    .divider { height:1px; background:rgba(255,255,255,0.1); margin:28px 0 20px; }
+    .footer-note { font-size:11.5px; color:var(--text-muted); opacity:.6; }
+
+    /* ═══════════════════════════════════════════════════════
+       WEBVIEW OVERLAY — shown when inside Messenger / Zalo
+    ═══════════════════════════════════════════════════════ */
+    .overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,0.82);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      align-items: flex-end; justify-content: center;
+      padding: 0 0 env(safe-area-inset-bottom, 0);
+      animation: fadeIn .25s ease both;
     }
-    .redirect-label {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-bottom: 8px;
+    .overlay.show { display: flex; }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+    .overlay-sheet {
+      background: #1a1833;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 28px 28px 0 0;
+      padding: 32px 28px 40px;
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+      animation: sheetUp .35s cubic-bezier(0.22,1,0.36,1) both;
     }
-    .bar-track {
-      height: 4px;
-      background: rgba(255,255,255,0.12);
-      border-radius: 99px;
-      overflow: hidden;
-    }
-    .bar-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #FFD700, #FF8C00);
-      border-radius: 99px;
-      transition: width 0.1s linear;
-    }
-    .divider {
-      height: 1px;
-      background: rgba(255,255,255,0.1);
-      margin: 28px 0 20px;
-    }
-    .footer-note {
-      font-size: 11.5px;
-      color: var(--text-muted);
-      opacity: 0.6;
+    @keyframes sheetUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+
+    .overlay-icon {
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg,#1e90ff,#0a6fd8);
+      border-radius: 18px;
+      display: flex; align-items:center; justify-content:center;
+      margin: 0 auto 20px;
+      box-shadow: 0 8px 24px rgba(30,144,255,0.4);
     }
 
-    /* WebView notice banner */
-    .webview-notice {
+    .overlay-title {
+      font-size: 20px; font-weight: 800; color: #fff;
+      margin-bottom: 10px; line-height: 1.3;
+    }
+    .overlay-subtitle {
+      font-size: 14px; color: rgba(255,255,255,0.6);
+      line-height: 1.6; margin-bottom: 28px;
+    }
+
+    /* Steps */
+    .steps { text-align: left; margin-bottom: 28px; }
+    .step {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex; align-items:center; justify-content:center;
+      font-size: 13px; font-weight: 700; color: #FFD700;
+    }
+    .step-text { font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.5; padding-top: 3px; }
+    .step-text strong { color: #fff; }
+
+    /* Messenger hint arrow */
+    .hint-arrow {
       display: none;
-      align-items: center;
-      gap: 10px;
-      background: rgba(255, 200, 0, 0.15);
-      border: 1px solid rgba(255, 200, 0, 0.35);
-      border-radius: 14px;
-      padding: 12px 16px;
-      margin-bottom: 24px;
-      font-size: 13px;
-      color: #FFE566;
-      line-height: 1.5;
+      position: fixed;
+      z-index: 1000;
+      pointer-events: none;
+    }
+    /* Arrow pointing to top-right for Messenger "..." */
+    .hint-arrow-tr {
+      top: 8px; right: 12px;
+      font-size: 36px;
+      animation: bounce-tr 0.8s ease-in-out infinite alternate;
+    }
+    @keyframes bounce-tr { from{transform:translate(0,0)} to{transform:translate(4px,-6px)} }
+
+    /* Copy button */
+    .btn-copy {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      font-family: inherit; font-size: 14px; font-weight: 600;
+      padding: 13px 20px; border-radius: 14px;
+      cursor: pointer; width: 100%; margin-bottom: 12px;
+      transition: background .15s ease, transform .1s ease;
+    }
+    .btn-copy:hover { background: rgba(255,255,255,0.18); }
+    .btn-copy:active { transform: scale(0.97); }
+    .btn-copy.copied { background: rgba(50,200,100,0.2); border-color: rgba(50,200,100,0.4); color: #4ade80; }
+
+    /* Open button inside overlay */
+    .btn-open {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      background: var(--btn-bg); color: #1a1000;
+      font-family: inherit; font-size: 16px; font-weight: 700;
+      padding: 16px 20px; border-radius: 50px;
+      box-shadow: var(--btn-shadow); border: none; cursor: pointer;
+      width: 100%; transition: transform .18s ease, filter .18s ease;
+    }
+    .btn-open:active { transform: scale(0.97); }
+
+    .url-chip {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 12px; color: rgba(255,255,255,0.5);
+      word-break: break-all; margin-bottom: 16px;
       text-align: left;
     }
-    .webview-notice.show { display: flex; }
-    .webview-notice svg { flex-shrink: 0; }
   </style>
 </head>
 <body>
@@ -211,7 +203,9 @@
   <div class="blob blob-1" aria-hidden="true"></div>
   <div class="blob blob-2" aria-hidden="true"></div>
   <div class="blob blob-3" aria-hidden="true"></div>
-  <main class="card" role="main">
+
+  <!-- Main card (shown in normal browsers) -->
+  <main class="card" role="main" id="main-card">
     <div class="stars" aria-label="5 sao">
       <span class="star" aria-hidden="true">⭐</span>
       <span class="star" aria-hidden="true">⭐</span>
@@ -220,7 +214,6 @@
       <span class="star" aria-hidden="true">⭐</span>
     </div>
     <div class="google-badge" aria-label="Google Maps Review">
-      <!-- Google "G" SVG -->
       <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
         <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -229,182 +222,234 @@
       </svg>
       Google Maps Review
     </div>
-
-    <!-- WebView warning banner (shown only inside in-app browsers) -->
-    <div class="webview-notice" id="webview-notice" role="alert" aria-live="polite">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFE566" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-      </svg>
-      <span id="webview-notice-text">Đang mở bằng trình duyệt mặc định…</span>
-    </div>
-
     <h1>Chia sẻ trải nghiệm của bạn!</h1>
     <p>Đánh giá của bạn giúp chúng tôi phát triển và giúp khách hàng khác tìm thấy chúng tôi dễ dàng hơn. Chỉ mất 30 giây thôi! 🙏</p>
-    <button
-      id="review-btn"
-      class="btn"
-      aria-label="Mở trang đánh giá Google ngay bây giờ"
-    >
-      <!-- Star icon -->
+    <a id="review-btn" href="https://g.page/r/CcFqFAmBpFFHEAE/review" class="btn" target="_blank" rel="noopener noreferrer" aria-label="Mở trang đánh giá Google ngay bây giờ">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
       </svg>
       Đánh giá ngay trên Google
-    </button>
+    </a>
     <div class="redirect-bar" role="status" aria-live="polite">
       <div class="redirect-label" id="redirect-label">Đang tự động chuyển hướng…</div>
-      <div class="bar-track">
-        <div class="bar-fill" id="bar-fill"></div>
-      </div>
+      <div class="bar-track"><div class="bar-fill" id="bar-fill"></div></div>
     </div>
     <div class="divider" aria-hidden="true"></div>
     <p class="footer-note">Nếu trang không tự chuyển, hãy nhấn nút bên trên.</p>
   </main>
 
+  <!-- ══════════════════════════════════════════════
+       WEBVIEW OVERLAY — hiện khi mở từ Messenger/Zalo
+  ══════════════════════════════════════════════ -->
+  <div class="overlay" id="webview-overlay" role="dialog" aria-modal="true" aria-labelledby="overlay-title">
+    <div class="overlay-sheet">
+
+      <!-- Icon -->
+      <div class="overlay-icon" aria-hidden="true">
+        <!-- Safari compass icon -->
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" stroke="white" stroke-width="1.5"/>
+          <path d="M16.24 7.76l-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12z" fill="white"/>
+          <circle cx="12" cy="12" r="1.5" fill="#1e90ff"/>
+        </svg>
+      </div>
+
+      <h2 class="overlay-title" id="overlay-title">Mở bằng trình duyệt để tiếp tục</h2>
+      <p class="overlay-subtitle" id="overlay-subtitle">Trang này cần mở bằng Safari hoặc Chrome để đánh giá trên Google Maps.</p>
+
+      <!-- Steps -->
+      <div class="steps" id="overlay-steps">
+        <!-- Filled by JS based on platform -->
+      </div>
+
+      <!-- URL chip -->
+      <div class="url-chip" id="url-chip">g.page/r/CcFqFAmBpFFHEAE/review</div>
+
+      <!-- Copy link button -->
+      <button class="btn-copy" id="btn-copy" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+        </svg>
+        <span id="btn-copy-text">Sao chép link</span>
+      </button>
+
+      <!-- Try open button -->
+      <button class="btn-open" id="btn-open" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+        </svg>
+        Thử mở trình duyệt ngay
+      </button>
+
+    </div>
+  </div>
+
   <script>
-    (function () {
-      var TARGET = 'https://g.page/r/CcFqFAmBpFFHEAE/review';
+  (function () {
+    var TARGET = 'https://g.page/r/CcFqFAmBpFFHEAE/review';
+    var ua = navigator.userAgent || '';
 
-      // ── 1. Detect environment ──────────────────────────────────────────────
-      var ua = navigator.userAgent || '';
-      var isIOS     = /iPhone|iPad|iPod/i.test(ua);
-      var isAndroid = /Android/i.test(ua);
+    // ── Platform detection ────────────────────────────────────────────────
+    var isIOS     = /iPhone|iPad|iPod/i.test(ua);
+    var isAndroid = /Android/i.test(ua);
 
-      // In-app browser detection
-      var isFBMessenger = /FBAN|FBAV|FB_IAB|Messenger/i.test(ua);
-      var isZalo        = /Zalo/i.test(ua);
-      var isInstagram   = /Instagram/i.test(ua);
-      var isTikTok      = /BytedanceWebview|musical_ly/i.test(ua);
-      // Generic WebView detection
-      var isIOSWebView  = isIOS && !(/Safari\//.test(ua)) && /AppleWebKit/.test(ua);
-      var isAndroidWebView = isAndroid && /wv/.test(ua);
+    var isFBMessenger  = /FBAN|FBAV|FB_IAB|Messenger/i.test(ua);
+    var isZalo         = /Zalo/i.test(ua);
+    var isInstagram    = /Instagram/i.test(ua);
+    var isTikTok       = /BytedanceWebview|musical_ly/i.test(ua);
+    var isIOSWebView   = isIOS && !/Safari\//.test(ua) && /AppleWebKit/.test(ua);
+    var isAndroidWV    = isAndroid && /wv\b/.test(ua);
 
-      var isInAppBrowser = isFBMessenger || isZalo || isInstagram || isTikTok || isIOSWebView || isAndroidWebView;
+    var isInApp = isFBMessenger || isZalo || isInstagram || isTikTok || isIOSWebView || isAndroidWV;
 
-      // ── 2. Progress bar animation ──────────────────────────────────────────
-      var barFill   = document.getElementById('bar-fill');
-      var barLabel  = document.getElementById('redirect-label');
-      var pct       = 0;
-      var barTimer  = setInterval(function () {
-        pct = Math.min(pct + 2, 98);
-        barFill.style.width = pct + '%';
-      }, 40);
+    // ── Progress bar ──────────────────────────────────────────────────────
+    var barFill  = document.getElementById('bar-fill');
+    var barLabel = document.getElementById('redirect-label');
+    var pct = 0;
+    var barTimer = setInterval(function () {
+      pct = Math.min(pct + 2, isInApp ? 60 : 98);
+      barFill.style.width = pct + '%';
+    }, 40);
 
-      function finishBar() {
-        clearInterval(barTimer);
-        barFill.style.width = '100%';
-        barLabel.textContent = 'Đã chuyển hướng ✓';
-      }
+    function finishBar(msg) {
+      clearInterval(barTimer);
+      barFill.style.width = '100%';
+      if (msg) barLabel.textContent = msg;
+    }
 
-      // ── 3. Show notice if inside WebView ──────────────────────────────────
-      var notice     = document.getElementById('webview-notice');
-      var noticeText = document.getElementById('webview-notice-text');
+    // ── If NOT in-app browser → redirect normally ─────────────────────────
+    if (!isInApp) {
+      setTimeout(function () {
+        try { window.location.replace(TARGET); } catch(e) { window.location.href = TARGET; }
+        finishBar('Đã chuyển hướng ✓');
+      }, 300);
 
-      if (isInAppBrowser) {
-        notice.classList.add('show');
-        if (isIOS) {
-          noticeText.textContent = 'Đang mở bằng Safari…';
-        } else {
-          noticeText.textContent = 'Đang mở bằng trình duyệt mặc định…';
-        }
-      }
-
-      // ── 4. Redirect logic ─────────────────────────────────────────────────
-
-      /**
-       * Android: Use intent:// URI to force Chrome / default browser.
-       * Falls back to normal URL if intent fails.
-       */
-      function androidEscape() {
-        // intent URI scheme — opens Chrome (or default browser) directly
-        var intentUrl =
-          'intent://' + TARGET.replace(/^https?:\/\//, '') +
-          '#Intent;scheme=https;action=android.intent.action.VIEW;' +
-          'category=android.intent.category.BROWSABLE;end';
-
-        // Redirect to intent URL
-        window.location.href = intentUrl;
-
-        // If intent fails (not on Android / no handler), fall back after short delay
-        setTimeout(function () {
-          window.location.href = TARGET;
-          finishBar();
-        }, 1500);
-      }
-
-      /**
-       * iOS: In-app browsers on iOS can often be escaped by temporarily
-       * navigating away then back, or by using a custom scheme that forces
-       * the OS to open in Safari.
-       *
-       * Strategy:
-       *  1. Try opening via a hidden <a> with target="_blank" + user gesture simulation
-       *  2. For Messenger specifically: deep-link back to Safari via location replace
-       */
-      function iosEscape() {
-        // Use a hidden link + programmatic click to request external open
-        var a = document.createElement('a');
-        a.href = TARGET;
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-
-        // Also try replacing top-level location
-        setTimeout(function () {
-          try { window.top.location.href = TARGET; } catch(e) {}
-          finishBar();
-        }, 300);
-      }
-
-      /**
-       * Standard redirect for real browsers (Safari, Chrome desktop/mobile, etc.)
-       */
-      function standardRedirect() {
-        try {
-          window.location.replace(TARGET);
-        } catch (e) {
-          window.location.href = TARGET;
-        }
-        finishBar();
-      }
-
-      // ── 5. Execute on load ────────────────────────────────────────────────
-      function doRedirect() {
-        if (isAndroid && isInAppBrowser) {
-          androidEscape();
-        } else if (isIOS && isInAppBrowser) {
-          iosEscape();
-        } else {
-          standardRedirect();
-        }
-      }
-
-      // Small delay so the page renders before redirect fires
-      setTimeout(doRedirect, 300);
-
-      // ── 6. Button click ───────────────────────────────────────────────────
-      var btn = document.getElementById('review-btn');
-      if (btn) {
-        btn.addEventListener('click', function (e) {
+      var mainBtn = document.getElementById('review-btn');
+      if (mainBtn) {
+        mainBtn.addEventListener('click', function (e) {
           e.preventDefault();
-          // On click we have a user gesture — best chance to open external browser
-          if (isAndroid && isInAppBrowser) {
-            androidEscape();
-          } else if (isIOS && isInAppBrowser) {
-            // Open a new window (user gesture required on iOS)
-            var w = window.open(TARGET, '_blank');
-            if (!w) {
-              // Pop-up blocked — fallback
-              window.location.href = TARGET;
-            }
-          } else {
-            window.open(TARGET, '_blank', 'noopener,noreferrer');
-          }
+          window.open(TARGET, '_blank', 'noopener,noreferrer');
         });
       }
-    })();
+      return; // done
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    // IN-APP BROWSER DETECTED
+    // ══════════════════════════════════════════════════════════════════════
+
+    finishBar('Vui lòng mở bằng trình duyệt ↓');
+
+    // Build overlay steps based on platform
+    var stepsEl    = document.getElementById('overlay-steps');
+    var subtitleEl = document.getElementById('overlay-subtitle');
+
+    function makeStep(num, html) {
+      return '<div class="step"><div class="step-num">' + num + '</div><div class="step-text">' + html + '</div></div>';
+    }
+
+    if (isFBMessenger && isIOS) {
+      // Messenger iOS: has "..." button top-right → "Open in Safari"
+      subtitleEl.textContent = 'Messenger dùng trình duyệt riêng. Làm theo 2 bước sau để mở Safari:';
+      stepsEl.innerHTML =
+        makeStep(1, 'Nhấn vào biểu tượng <strong>···</strong> ở góc trên bên phải màn hình') +
+        makeStep(2, 'Chọn <strong>"Mở bằng Safari"</strong> (hoặc "Open in Safari")');
+
+    } else if (isZalo && isIOS) {
+      subtitleEl.textContent = 'Zalo dùng trình duyệt riêng. Làm theo 2 bước sau để mở Safari:';
+      stepsEl.innerHTML =
+        makeStep(1, 'Nhấn vào biểu tượng <strong>⋮</strong> hoặc <strong>···</strong> ở góc trên bên phải') +
+        makeStep(2, 'Chọn <strong>"Mở bằng trình duyệt"</strong> hoặc <strong>"Mở Safari"</strong>');
+
+    } else if (isIOS) {
+      subtitleEl.textContent = 'Ứng dụng này dùng trình duyệt riêng. Hãy sao chép link và mở Safari:';
+      stepsEl.innerHTML =
+        makeStep(1, 'Nhấn nút <strong>"Sao chép link"</strong> bên dưới') +
+        makeStep(2, 'Mở <strong>Safari</strong> → dán link vào thanh địa chỉ');
+
+    } else if (isFBMessenger && isAndroid) {
+      subtitleEl.textContent = 'Messenger dùng trình duyệt riêng. Làm theo 2 bước sau để mở Chrome:';
+      stepsEl.innerHTML =
+        makeStep(1, 'Nhấn vào biểu tượng <strong>⋮</strong> ở góc trên bên phải') +
+        makeStep(2, 'Chọn <strong>"Mở bằng Chrome"</strong> hoặc <strong>"Open in Chrome"</strong>');
+
+    } else if (isZalo && isAndroid) {
+      subtitleEl.textContent = 'Zalo dùng trình duyệt riêng. Làm theo 2 bước sau:';
+      stepsEl.innerHTML =
+        makeStep(1, 'Nhấn vào biểu tượng <strong>⋮</strong> hoặc <strong>···</strong> ở góc trên') +
+        makeStep(2, 'Chọn <strong>"Mở bằng trình duyệt"</strong>');
+
+    } else {
+      subtitleEl.textContent = 'Ứng dụng này dùng trình duyệt riêng. Hãy sao chép link và mở bằng Chrome / Safari:';
+      stepsEl.innerHTML =
+        makeStep(1, 'Nhấn nút <strong>"Sao chép link"</strong> bên dưới') +
+        makeStep(2, 'Mở <strong>Chrome</strong> hoặc <strong>Safari</strong> → dán vào thanh địa chỉ');
+    }
+
+    // Show overlay
+    document.getElementById('webview-overlay').classList.add('show');
+
+    // ── Copy button ────────────────────────────────────────────────────────
+    var btnCopy     = document.getElementById('btn-copy');
+    var btnCopyText = document.getElementById('btn-copy-text');
+
+    btnCopy.addEventListener('click', function () {
+      // Try Clipboard API first
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(TARGET).then(onCopied).catch(fallbackCopy);
+      } else {
+        fallbackCopy();
+      }
+    });
+
+    function onCopied() {
+      btnCopy.classList.add('copied');
+      btnCopyText.textContent = 'Đã sao chép! ✓';
+      setTimeout(function () {
+        btnCopy.classList.remove('copied');
+        btnCopyText.textContent = 'Sao chép link';
+      }, 3000);
+    }
+
+    function fallbackCopy() {
+      // execCommand fallback
+      var ta = document.createElement('textarea');
+      ta.value = TARGET;
+      ta.style.cssText = 'position:fixed;top:-999px;left:-999px;opacity:0';
+      document.body.appendChild(ta);
+      ta.focus(); ta.select();
+      try {
+        document.execCommand('copy');
+        onCopied();
+      } catch(e) {
+        // Show URL chip so user can manually copy
+        document.getElementById('url-chip').style.color = '#FFE566';
+        document.getElementById('url-chip').style.borderColor = 'rgba(255,230,100,0.4)';
+      }
+      document.body.removeChild(ta);
+    }
+
+    // ── "Try open" button ─────────────────────────────────────────────────
+    var btnOpen = document.getElementById('btn-open');
+    btnOpen.addEventListener('click', function () {
+      if (isAndroid) {
+        // Try intent:// URI (works on many Android in-app browsers)
+        var intentUrl = 'intent://' + TARGET.replace(/^https?:\/\//, '') +
+          '#Intent;scheme=https;action=android.intent.action.VIEW;' +
+          'category=android.intent.category.BROWSABLE;end';
+        window.location.href = intentUrl;
+        // Fallback
+        setTimeout(function () { window.location.href = TARGET; }, 1500);
+      } else {
+        // iOS: try opening a new window (requires user gesture — we have one here)
+        var w = window.open(TARGET, '_blank');
+        if (!w || w.closed || typeof w.closed === 'undefined') {
+          window.location.href = TARGET;
+        }
+      }
+    });
+
+  })();
   </script>
 </body>
 </html>
